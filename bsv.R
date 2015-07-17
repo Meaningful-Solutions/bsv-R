@@ -57,3 +57,25 @@ read.bsv <- function( file, sep = c("][", ")(", "}{") ){
   
   return(bsv);
 }#read.bsv
+
+write.bsv <- function(x, filePath, sep = c('][', ')(', '}{')){
+  hdr <- paste(names(x), collapse=sep[1]);
+  hdr <- paste(sep[3], sep[1], hdr, sep[1], sep[3], sep="");
+  #print(hdr);
+  c.data <- c();
+  for(rw in 1:nrow(x)){
+    entry <- paste( as.character(unlist(x[rw,])), collapse=sep[1]);
+    entry <- paste( sep[1], entry, sep[1], sep="");
+    c.data <- c(c.data, entry);
+  }
+  #print(c.data)
+  
+  row.data <- paste( c.data, sep="", collapse=sep[2]);
+  #print(row.data)
+  
+  row.data <- paste(sep[2], row.data, sep[2], sep="");
+  #print(row.data);
+  
+  response <- paste(hdr, row.data);
+  return( response );
+}
